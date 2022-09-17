@@ -1,7 +1,13 @@
 import React from "react";
 
+import Icon from "@/components/icon";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Icon type="icon-tupian1" />
+    </div>
+  );
 };
 
 export default Home;

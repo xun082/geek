@@ -2,8 +2,7 @@ import React from "react";
 
 import "./App.scss";
 import RouterConfig from "./router";
-import { HashRouter } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { HashRouter, Link } from "react-router-dom";
 
 const App = () => {
   return (
