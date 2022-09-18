@@ -15,7 +15,6 @@ const NavBar: React.FC<Props> = (props) => {
   const { className, children, extra } = props;
 
   const navigate = useNavigate();
-  console.log(navigate);
 
   return (
     <div className={classNames(styles.root, className)}>

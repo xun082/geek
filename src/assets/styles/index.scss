@@ -1,9 +1,12 @@
-@import "antd-mobile/bundle/css-vars-patch.css";
 * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   box-sizing: border-box;
 }
-body {
+html body {
   color: #333;
+  font-size: 16px;
   font-family: PingFangSC;
   background-color: #fff;
 }
@@ -50,6 +53,9 @@ input {
   border: 0;
   resize: none;
   color: #333;
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 textarea {
@@ -67,8 +73,10 @@ textarea {
   word-wrap: break-word;
 }
 
-/* Navbar icon */
-.am-navbar-left {
-  font-size: 20px;
-  color: #999;
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
