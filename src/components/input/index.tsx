@@ -21,6 +21,7 @@ const Input: React.FC<
 > = (props) => {
   const { type, onClick, code, className, onChange, autoFocus, ...rest } =
     props;
+
   return (
     <div className={styles.root}>
       <input
