@@ -10,6 +10,7 @@ interface IProps {
   code?: boolean;
   className?: string;
   autoFocus?: boolean;
+  extra?: string;
 }
 
 const Input: React.FC<
@@ -19,8 +20,16 @@ const Input: React.FC<
       HTMLInputElement
     >
 > = (props) => {
-  const { type, onClick, code, className, onChange, autoFocus, ...rest } =
-    props;
+  const {
+    type,
+    onClick,
+    code,
+    className,
+    onChange,
+    autoFocus,
+    extra,
+    ...rest
+  } = props;
 
   return (
     <div className={styles.root}>
@@ -33,7 +42,7 @@ const Input: React.FC<
       />
       {code && (
         <div className="extra" onClick={onClick}>
-          发送验证码
+          {extra}
         </div>
       )}
     </div>

@@ -1,27 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
+import { Toast } from "antd-mobile";
 import styles from "./index.module.scss";
 import NavBar from "@/components/NavBar";
 import Input from "@/components/input";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import classNames from "classnames";
+import { sendCode } from "@/services/login";
 
-import { getCode } from "@/store/modules/login";
+import { LoginAction } from "@/store/modules/login";
 // import { useSelector } from "react-redux";
 
 import { useAppDispatch } from "@/store";
 
 const Login: React.FC = () => {
-  const formik = useFormik({
+  const dispatch = useAppDispatch();
+
+  const [timer, setTimer] = useState<number>(0);
+
+  const formIk = useFormik({
     initialValues: {
-      // mobile: "1391111111",
-      // code: "123456",
-      mobile: "",
+      mobile: "13911111111",
       code: "",
     },
     onSubmit: (value) => {
-      console.log(value);
+      dispatch(LoginAction(value));
     },
     // 校验规则
     validationSchema: yup.object({
@@ -44,13 +48,48 @@ const Login: React.FC = () => {
     touched,
     errors,
     isValid,
-  } = formik;
+  } = formIk;
 
-  const dispatch = useAppDispatch();
+  // 发送验证码
+  const sendCodeHandle = async () => {
+    if (timer > 0) return;
+    // 先对手机号进行验证
+    if (!/^1[3-9]\d{9}$/.test(mobile)) {
+      formIk.setTouched({
+        mobile: true,
+      });
+      return;
+    }
 
-  useEffect(() => {
-    dispatch(getCode());
-  }, [dispatch]);
+    try {
+      await sendCode(mobile);
+      Toast.show({
+        icon: "success",
+        content: "验证码发送成功",
+      });
+      setTimer(60);
+      let timeId = setInterval(() => {
+        setTimer((timer) => {
+          // 清除定时器
+          if (timer === 1) clearInterval(timeId);
+
+          return timer - 1;
+        });
+      }, 1000);
+    } catch (error: any) {
+      if (error.response) {
+        Toast.show({
+          icon: "fail",
+          content: error.response.data.message,
+        });
+      } else {
+        Toast.show({
+          icon: "fail",
+          content: "服务器繁忙,请稍后重试",
+        });
+      }
+    }
+  };
 
   return (
     <div className={styles.root}>
@@ -83,6 +122,8 @@ const Login: React.FC = () => {
               autoComplete="off"
               onBlur={handleBlur}
               placeholder="请输入验证码"
+              onClick={sendCodeHandle}
+              extra={timer === 0 ? "发送验证码" : timer + "s后获取"}
             />
             {touched.code && errors.code && (
               <div className="validate">{errors.code}</div>

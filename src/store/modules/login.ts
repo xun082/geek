@@ -1,10 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import axios from "axios";
+import { sendLogin } from "@/services/login";
+import { setTokenInfo } from "@/utils/storage";
 
 export interface Token {
   token: string;
   refresh_token: string;
+}
+
+interface LoginProps {
+  mobile: string;
+  code: string;
 }
 
 const initialState: Token = {
@@ -12,24 +18,26 @@ const initialState: Token = {
   refresh_token: "",
 };
 
-const sendCode = () =>
-  axios
-    .get("http://localhost:3001/search?keywords=海阔天空")
-    .then((res) => res);
+export const LoginAction = createAsyncThunk(
+  "code",
+  async (data: LoginProps) => {
+    const result = await sendLogin(data);
 
-export const getCode = createAsyncThunk("code", async () => {
-  const res = await sendCode();
-  return res;
-});
+    return result;
+  }
+);
 
 export const counterSlice = createSlice({
   name: "login",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getCode.fulfilled, (state, action) => {
-      console.log({ ...state });
-      console.log(action);
+    builder.addCase(LoginAction.fulfilled, (state, { payload }) => {
+      const { token, refresh_token } = payload.data;
+      state.token = token;
+      state.refresh_token = refresh_token;
+
+      setTokenInfo(payload.data);
     });
   },
 });
