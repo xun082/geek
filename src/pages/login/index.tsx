@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import styles from "./index.module.scss";
 import NavBar from "@/components/NavBar";
@@ -6,6 +6,11 @@ import Input from "@/components/input";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import classNames from "classnames";
+
+import { getCode } from "@/store/modules/login";
+// import { useSelector } from "react-redux";
+
+import { useAppDispatch } from "@/store";
 
 const Login: React.FC = () => {
   const formik = useFormik({
@@ -40,6 +45,12 @@ const Login: React.FC = () => {
     errors,
     isValid,
   } = formik;
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getCode());
+  }, [dispatch]);
 
   return (
     <div className={styles.root}>
