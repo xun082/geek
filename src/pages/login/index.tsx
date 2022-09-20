@@ -10,12 +10,13 @@ import classNames from "classnames";
 import { sendCode } from "@/services/login";
 
 import { LoginAction } from "@/store/modules/login";
-// import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "@/store";
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [timer, setTimer] = useState<number>(0);
 
@@ -24,8 +25,11 @@ const Login: React.FC = () => {
       mobile: "13911111111",
       code: "",
     },
-    onSubmit: (value) => {
-      dispatch(LoginAction(value));
+    onSubmit: async (value) => {
+      await dispatch(LoginAction(value));
+
+      Toast.show("登录成功");
+      navigate("/home");
     },
     // 校验规则
     validationSchema: yup.object({

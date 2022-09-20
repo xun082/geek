@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { sendLogin } from "@/services/login";
 import { setTokenInfo } from "@/utils/storage";
+import { getTokenInfo } from "@/utils/storage";
 
 export interface Token {
   token: string;
@@ -14,8 +15,8 @@ interface LoginProps {
 }
 
 const initialState: Token = {
-  token: "",
-  refresh_token: "",
+  token: getTokenInfo().token || "",
+  refresh_token: getTokenInfo().refresh_token || "",
 };
 
 export const LoginAction = createAsyncThunk(

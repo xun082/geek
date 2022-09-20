@@ -2,7 +2,7 @@ import { Toast } from "antd-mobile";
 import axios from "axios";
 import { getTokenInfo } from "@/utils/storage";
 
-import { AxiosError } from "axios";
+import { AxiosError, AxiosRequestConfig } from "axios";
 
 const baseURL = "http://geek.itheima.net/v1_0/";
 const instance = axios.create({
@@ -12,7 +12,7 @@ const instance = axios.create({
 
 // 配置拦截器
 instance.interceptors.request.use(
-  (config) => {
+  (config: AxiosRequestConfig) => {
     // 对config做点什么
     // 获取token
     const token = getTokenInfo().token;
@@ -46,6 +46,7 @@ instance.interceptors.response.use(
     if (response.status !== 401) {
       // 不是token失效的问题
       Toast.show(response.data.message);
+
       return Promise.reject(err);
     }
   }
