@@ -9,14 +9,20 @@ import { useSelector } from "react-redux";
 
 const My: React.FC = () => {
   const userInfo = useSelector((state: RootState) => state.user.userInfo);
+  const { token } = useSelector((state: RootState) => state.login);
 
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getUserInfoAction());
-  }, [dispatch]);
+    if (token.length !== 0) dispatch(getUserInfoAction());
+  }, [dispatch, token]);
+
+  const goDetail = () => {
+    if (token) navigate("/profile/edit");
+    else navigate("/login");
+  };
 
   return (
     <div className={styles.root}>
@@ -27,9 +33,9 @@ const My: React.FC = () => {
             <img src={userInfo.photo} alt="" />
           </div>
           <div className="user-name">{userInfo.name}</div>
-          <Link to="/profile/edit">
+          <div onClick={goDetail}>
             个人信息 <Icon type="iconbtn_right" />
-          </Link>
+          </div>
         </div>
 
         {/* 今日阅读区域 */}

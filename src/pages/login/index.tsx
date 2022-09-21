@@ -23,7 +23,7 @@ const Login: React.FC = () => {
   const formIk = useFormik({
     initialValues: {
       mobile: "13911111111",
-      code: "",
+      code: "246810",
     },
     onSubmit: async (value) => {
       await dispatch(LoginAction(value));

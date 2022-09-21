@@ -9,10 +9,11 @@ interface Props {
   extra?: string | ReactElement;
   className?: string;
   onLeftClick?: () => void;
+  path?: unknown;
 }
 
 const NavBar: React.FC<Props> = (props) => {
-  const { className, children, extra } = props;
+  const { className, children, extra, path } = props;
 
   const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ const NavBar: React.FC<Props> = (props) => {
     <div className={classNames(styles.root, className)}>
       {/* 后退按钮 */}
       <div className="left">
-        <Icon type="iconfanhui" onClick={() => navigate(-1)} />
+        <Icon type="iconfanhui" onClick={() => navigate(path || -1)} />
       </div>
       {/* 居中标题 */}
       <div className="title">{children}</div>

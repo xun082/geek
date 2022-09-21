@@ -3,6 +3,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { sendLogin } from "@/services/login";
 import { setTokenInfo, getTokenInfo } from "@/utils/storage";
 
+import { removeTokenInfo } from "@/utils/storage";
+
 interface LoginProps {
   mobile: string;
   code: string;
@@ -30,7 +32,13 @@ export const LoginAction = createAsyncThunk(
 const counterSlice = createSlice({
   name: "login",
   initialState,
-  reducers: {},
+  reducers: {
+    logoutAction(state) {
+      removeTokenInfo();
+      state.token = "";
+      state.refresh_token = "";
+    },
+  },
   extraReducers: (builder) => {
     builder
       // 登录实例
@@ -42,5 +50,7 @@ const counterSlice = createSlice({
       });
   },
 });
+
+export const { logoutAction } = counterSlice.actions;
 
 export default counterSlice.reducer;
