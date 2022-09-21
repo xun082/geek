@@ -17,3 +17,10 @@ export function sendLogin(value: {}) {
     data: JSON.stringify(value),
   });
 }
+
+export function getUserInfo() {
+  return request({
+    url: "/user",
+    method: "get",
+  });
+}
