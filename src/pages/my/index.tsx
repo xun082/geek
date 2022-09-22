@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import styles from "./index.module.scss";
 import Icon from "@/components/icon";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, RootState } from "@/store";
 import { getUserInfoAction } from "@/store/modules/profile";
 import { useSelector } from "react-redux";

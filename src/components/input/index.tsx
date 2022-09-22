@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 import classNames from "classnames";
 
 interface IProps {
-  type: "text" | "password";
+  type?: "text" | "password";
   onClick?: () => void;
   onChange?: (e: React.ChangeEvent<any>) => void;
   code?: boolean;
@@ -21,7 +21,7 @@ const Input: React.FC<
     >
 > = (props) => {
   const {
-    type,
+    type = "text",
     onClick,
     code,
     className,
