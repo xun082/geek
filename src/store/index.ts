@@ -6,9 +6,10 @@ import { useDispatch } from "react-redux";
 
 import login from "./modules/login";
 import user from "./modules/profile";
+import home from "./modules/home";
 
 export const store = configureStore({
-  reducer: { login, user },
+  reducer: { login, user, home },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(logger),
   devTools: process.env.NODE_ENV !== "production",
