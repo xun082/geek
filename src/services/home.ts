@@ -1,6 +1,6 @@
 import request from "./request";
 
-export function getChannels() {
+export function getUserChannels() {
   return request({
     url: "/user/channels",
   });

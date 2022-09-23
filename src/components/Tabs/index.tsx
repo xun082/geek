@@ -4,22 +4,17 @@ import PropTypes from "prop-types";
 
 import styles from "./index.module.scss";
 import React from "react";
-
-type TabsProps = {
-  id: number;
-  name: string;
-};
+import { channelsType } from "@/store/modules/home";
 
 interface IProps {
   index?: number;
-  tabs: Array<TabsProps>;
+  tabs: Array<channelsType>;
   children?: HTMLElement | React.ReactElement;
   onChange?: (index: number) => void;
 }
 
 const Tabs: React.FC<IProps> = (props) => {
   const { index = 0, tabs, children, onChange } = props;
-  console.log(tabs);
 
   const navRef = useRef<HTMLElement | any>();
   const lineRef = useRef<HTMLElement | any>();
@@ -80,7 +75,7 @@ const Tabs: React.FC<IProps> = (props) => {
       <div className="tabs">
         <div className="tabs-wrap">
           <div className="tabs-nav" ref={navRef}>
-            {tabs?.map((item, i) => (
+            {tabs.map((item, i) => (
               <div
                 className={classnames("tab", i === activeIndex ? "active" : "")}
                 key={i}

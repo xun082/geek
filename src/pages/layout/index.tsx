@@ -5,7 +5,7 @@ import Icon from "@/components/icon";
 import styles from "./index.module.scss";
 import classNames from "classnames";
 import { Link, useLocation } from "react-router-dom";
-import { tabBar } from "@/components/common/local";
+import { tabBar } from "@/common/local";
 
 import { Outlet } from "react-router-dom";
 

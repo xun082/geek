@@ -1,19 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { getChannels } from "@/services/home";
+import { getUserChannels } from "@/services/home";
+import { getLocalChannels, hasToken, setLocalChannels } from "@/utils/storage";
 
-interface channelsType {
+export interface channelsType {
   id: number;
   name: string;
 }
 
 const initialState = {
-  channels: [] as channelsType[],
+  channels: [] as Array<channelsType>,
 };
 
 export const channelsAction = createAsyncThunk("channels", async () => {
-  const result = await getChannels();
-  return result.data;
+  const result = await getUserChannels();
+  if (hasToken()) {
+    return result.data;
+  } else {
+    const channels = getLocalChannels();
+    if (channels) {
+      // 没有token,但本地有
+      return channels;
+    } else {
+      // 没有token且本地没有
+      return setLocalChannels(result.data);
+    }
+  }
 });
 
 export const counterSlice = createSlice({
