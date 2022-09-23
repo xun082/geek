@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 const Home: React.FC = () => {
   const { channels } = useSelector((state: RootState) => state.home);
   const dispatch = useAppDispatch();
-
+    
   const navigate = useNavigate();
 
   useEffect(() => {
