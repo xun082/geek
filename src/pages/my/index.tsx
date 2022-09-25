@@ -3,13 +3,14 @@ import React, { useEffect } from "react";
 import styles from "./index.module.scss";
 import Icon from "@/components/icon";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, RootState } from "@/store";
+import { useAppDispatch } from "@/store";
 import { getUserInfoAction } from "@/store/modules/profile";
-import { useSelector } from "react-redux";
+
+import { useAppSelector } from "@/store";
 
 const My: React.FC = () => {
-  const userInfo = useSelector((state: RootState) => state.user.userInfo);
-  const { token } = useSelector((state: RootState) => state.login);
+  const userInfo = useAppSelector((state) => state.user.userInfo);
+  const { token } = useAppSelector((state) => state.login);
 
   const navigate = useNavigate();
 

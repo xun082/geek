@@ -2,16 +2,16 @@ import React, { useEffect } from "react";
 
 import styles from "./index.module.scss";
 import Tabs from "@/components/Tabs";
-import { useAppDispatch, RootState } from "@/store";
+import { useAppDispatch } from "@/store";
 import { channelsAction } from "@/store/modules/home";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import Icon from "@/components/icon";
 import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
-  const { channels } = useSelector((state: RootState) => state.home);
+  const { channels } = useAppSelector((state) => state.home);
   const dispatch = useAppDispatch();
-    
+
   const navigate = useNavigate();
 
   useEffect(() => {

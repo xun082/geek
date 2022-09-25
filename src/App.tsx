@@ -4,7 +4,7 @@ import "@/assets/styles/index.scss";
 import RouterConfig from "./router";
 import { BrowserRouter } from "react-router-dom";
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <div className="app">
       <BrowserRouter>
